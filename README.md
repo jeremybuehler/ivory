@@ -1,26 +1,19 @@
 
 ## Introduction
-This is a NodeJS tool to consume a WSDL file and output a neat, manageable Javascript library. It is not 100% complete, but it gives us full coverage of the services we need at Holiday Extras. If it doesn't do everything you need, fork us and contribute back to the community :)
+Consume a WSDL file and output an ECMAScript library. 
 
-## Where do I find it?
-Either get it from npm:
+## Git it:
 ```
-sudo npm install -g wsdl2.js
-```
-Or checkout the repo:
-```
-git clone https://github.com/holidayextras/wsdl2.js.git
-npm install
+sudo npm install -g ivory 
 ```
 
 ## How do I use it?
 This will generate a folder called [serviceName] in the current directory ready to be require'd and used:
 ```
-wsdl2.js [serviceName] [/local/path/to/wsdl]
+ivory [serviceName] [/local/path/to/wsdl]
 ```
 
 ## Requirements for using the generated code
-Note: these modules are installed by npm-installing wsdl2.js
 ```
 npm install request xml2json
 ```
@@ -48,16 +41,13 @@ npm install request xml2json
     └── ...
 ```
 
-## Using the generated code
-Start by including the generated code:
+## Using the generated code for the weather service
 ```javascript
-var Service = require("path/to/generated/code");
-var EC2 = require("lib/EC2");
+var service = require("./[serviceName]");
 ```
 This is how we create a new request:
 ```javascript
-var someRequest = new Service.[WSDL-Binding-Name].[WSDL-Operation-Name]();
-var assignRequest = new EC2.AmazonEC2Port.AssignPrivateIpAddresses();
+var someRequest = new service.[WSDL-Binding-Name].[WSDL-Operation-Name]();
 ```
 Setting basic properties is trivial
 ```javascript
@@ -117,7 +107,7 @@ someRequest.request(function(err, response) {
 
 ## Runtime Settings and Debugging
 ```javascript
-var Service = require("path/to/generated/code");
+var Service = require("./[serviceName]");
 
 // This next statement will enable debugging for ALL soap requests
 // It prints to stdout JSON objects, XML documents, etc
@@ -147,47 +137,6 @@ additionRequest.request(function(err, response) {
   if (err || !response) {
     return callback(err || "No response?");
   }
-  
-  //... w00p!
 });
-```
-
-## Checking the generated service definition
-Generic example of ./[ServiceName]/ServiceDefinition.js:
-```javascript
-module.exports = {
-  "[WSDL-Binding-Name]": {
-    "namespace": "http://blahblah.com/webservices/",
-    "serviceUrl": "https://www.blahblah.com/path/to/service.blah",
-    "[WSDL-Operation-Name]": {
-      "soapAction": "blahblahblah",
-      "input": "[Top-Level-Request-Element-For-Operation]",
-      "output": "[Top-Level-Response-Element-For-Operation]"
-    },
-    ...
-  },
-  ...
-}
-```
-Example of Amazon's EC2 service:
-```javascript
-module.exports = {
-  "AmazonEC2Port": {
-    "namespace": "http://ec2.amazonaws.com/doc/2013-02-01/",
-    "serviceUrl": "https://ec2.amazonaws.com/",
-    "ActivateLicense": {
-      "soapAction": "ActivateLicense",
-      "input": "ElementActivateLicense",
-      "output": "ElementActivateLicenseResponse"
-    },
-    "AssignPrivateIpAddresses": {
-      "soapAction": "AssignPrivateIpAddresses",
-      "input": "ElementAssignPrivateIpAddresses",
-      "output": "ElementAssignPrivateIpAddressesResponse"
-    },
-    ...
-  },
-  ...
-}
 ```
 

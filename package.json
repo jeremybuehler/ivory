@@ -1,17 +1,16 @@
 {
-  "author": "Oliver Rumbelow <oliver.rumbelow@holidayextras.com> (http://www.holidayextras.co.uk/)",
-  "name": "wsdl2.js",
-  "description": "Consumes a WSDL file and produces a high quality, manageable Javascript library",
+  "name": "ivory",
+  "author": "rmacpherson@seamgen.com <Rod Macpherson> (http://www.seamgen.com/)",
+  "description": "Consumes a WSDL file and produces a Javascript library",
   "version": "0.1.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/holidayextras/wsdl2.js.git"
+    "url": "https://github.com/Toadskin/ivory.git"
   },
   "keywords": [
     "soap",
-    "wsdl",
-    "generator",
-    "converter"
+    "wsdl"
   ],
   "dependencies": {
     "request": ">=2.16.6",
@@ -21,6 +20,5 @@
     "node": "*"
   },
   "preferGlobal": "true",
-  "bin" : { "wsdl2.js" : "./wsdl2.js" },
-  "license": "GPL"
+  "bin" : { "ivory" : "./ivory.js" }
 }
