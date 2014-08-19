@@ -1,5 +1,6 @@
 {
   "name": "ivory",
+  "private": true,
   "author": "rmacpherson@seamgen.com <Rod Macpherson> (http://www.seamgen.com/)",
   "description": "Consumes a WSDL file and produces a Javascript library",
   "version": "0.0.2",
